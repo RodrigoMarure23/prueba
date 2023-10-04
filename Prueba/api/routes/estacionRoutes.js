@@ -21,14 +21,14 @@ const conectarbd = async () => {
       return;
     }
     console.log('Conexión a la base de datos establecida');
-  }); 
+  });
   router.get('/estaciones', (req, res) => {
-    
-
-    
 
 
-// endpoint para obtener todas las estaciones cercanas
+
+
+
+    // endpoint para obtener todas las estaciones cercanas
     const competidoresQuery = `SELECT * FROM stations`;
 
     conexion.query(competidoresQuery, (err, competidoresResults) => {
@@ -38,7 +38,7 @@ const conectarbd = async () => {
         return;
       }
 
-     
+
 
 
       res.json({
@@ -48,8 +48,8 @@ const conectarbd = async () => {
 
   });
 
-  router.get('/estaciones/:estacionId', (req, res) => {
-    const estacionId = req.params.estacionId;
+  router.get('/estacionesInfo', (req, res) => {
+    const { estacionId } = req.body;
     console.log(req.params.estacionId)
     // Consulta SQL para obtener información de la estación
 
@@ -57,7 +57,7 @@ const conectarbd = async () => {
 
 
     // Consulta SQL para obtener información de los competidores cercanos
-    const competidoresQuery = `SELECT * FROM station where cre_id= ${estacionId}`;
+    const competidoresQuery = `SELECT name FROM stations where cre_id=${estacionId}`;
 
     conexion.query(competidoresQuery, (err, competidoresResults) => {
       if (err) {
@@ -66,7 +66,7 @@ const conectarbd = async () => {
         return;
       }
 
-    
+
 
 
       res.json({
